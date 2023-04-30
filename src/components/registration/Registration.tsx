@@ -1,7 +1,7 @@
 import React from "react";
 import "./Registration.scss";
 
-function Registration() {
+const Registration = () => {
   return (
     <div className="Registration">
       <div className="header">
@@ -69,6 +69,6 @@ function Registration() {
       </div>
     </div>
   );
-}
+};
 
 export default Registration;
