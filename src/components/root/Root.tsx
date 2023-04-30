@@ -1,10 +1,10 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import './Registration'
-import Registration from './Registration';
+import React from "react";
+import logo from "./logo.svg";
+import "./Root.scss";
+import "../registration/Registration";
+import Registration from "../registration/Registration";
 
-function App() {
+const Root = () => {
   return (
     <div className="App">
       {/* <header className="App-header">
@@ -24,6 +24,6 @@ function App() {
       <Registration />
     </div>
   );
-}
+};
 
-export default App;
+export default Root;
