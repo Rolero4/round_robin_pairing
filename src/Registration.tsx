@@ -1,5 +1,5 @@
-import React from 'react';
-import './Registration.css';
+import React from "react";
+import "./Registration.css";
 
 function Registration() {
   return (
@@ -8,11 +8,12 @@ function Registration() {
         <h1>Robin-round - registration</h1>
       </div>
       <div className="top-panel">
-        <button 
-          id='btn-add' 
+        <button
+          id="btn-add"
           className="btn btn-main"
           // onClick={ }
-          >Add player
+        >
+          Add player
         </button>
       </div>
       <div className="main-panel">
@@ -58,11 +59,12 @@ function Registration() {
         </table>
       </div>
       <div className="bottom-panel">
-        <button 
-          id='btn-create' 
-          className="btn btn-bottom" 
+        <button
+          id="btn-create"
+          className="btn btn-bottom"
           // onClick={ }
-          >Create tournament
+        >
+          Create tournament
         </button>
       </div>
     </div>

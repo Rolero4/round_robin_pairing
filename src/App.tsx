@@ -1,8 +1,8 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import './Registration'
-import Registration from './Registration';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import "./Registration";
+import Registration from "./Registration";
 
 function App() {
   return (
