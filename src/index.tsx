@@ -1,14 +1,41 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Navigate,
+} from "react-router-dom";
 import "./index.scss";
 import Root from "./components/root/Root";
-import reportWebVitals from "./reportWebVitals";
+import Registration from "./components/registration/Registration";
+import Pairings from "./components/pairings/Pairings";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Root />,
+    children: [
+      {
+        index: true,
+        element: <Registration />,
+      },
+      {
+        path: "pairings/",
+        element: <Pairings />,
+      },
+      {
+        path: "*",
+        element: <Navigate to="/" />,
+      },
+    ],
+  },
+]);
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
+  document.getElementById("root") as HTMLElement,
 );
 root.render(
   <React.StrictMode>
-    <Root />
-  </React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>,
 );
