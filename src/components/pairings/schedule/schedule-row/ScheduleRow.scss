@@ -1,0 +1,128 @@
+.schedule-row {
+  margin: 10px;
+  width: 70%;
+  height: 100px;
+  background-color: #dac4ff;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.14),
+    0 0 0 1px rgba(0, 0, 0, 0.12);
+}
+
+.first-player,
+.second-player {
+  display: flex;
+  align-items: center;
+}
+
+.first-player {
+  justify-content: start;
+}
+
+.color {
+  height: 30px;
+  width: 30px;
+  border-radius: 30px;
+  margin: 0 20px;
+}
+
+.first-player img,
+.second-player img {
+  width: 40px;
+  margin: 0 20px;
+}
+
+.second-player {
+  justify-content: end;
+}
+
+.first-player .name,
+.second-player .name {
+  font-weight: 500;
+  font-size: 17px;
+}
+
+.result {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 30px;
+}
+
+.result-text {
+  flex-grow: 4;
+  display: flex;
+  justify-content: space-evenly;
+  width: 80px;
+  max-height: 28px;
+  border: 2px solid black;
+  background-color: white;
+}
+
+.result-text text {
+  width: 10px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.divider {
+  height: 28px;
+  width: 2px;
+  background-color: #000;
+}
+
+$primary-color: #00005c;
+$text-color: mix(#000, $primary-color, 64%);
+
+form {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  min-width: 250px;
+}
+
+label {
+  display: flex;
+  cursor: pointer;
+  font-weight: 500;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 0.375em;
+  input {
+    position: absolute;
+    left: -9999px;
+    &:checked + span {
+      background-color: mix(#fff, $primary-color, 84%);
+      &:before {
+        box-shadow: inset 0 0 0 0.4375em $primary-color;
+      }
+    }
+  }
+  span {
+    display: flex;
+    align-items: center;
+    padding: 0.375em 0.75em 0.375em 0.375em;
+    border-radius: 99em;
+    transition: 0.25s ease;
+    &:hover {
+      background-color: mix(#fff, $primary-color, 84%);
+    }
+    &:before {
+      display: flex;
+      flex-shrink: 0;
+      content: "";
+      background-color: #fff;
+      width: 1.5em;
+      height: 1.5em;
+      border-radius: 50%;
+      margin-right: 0.375em;
+      transition: 0.25s ease;
+      box-shadow: inset 0 0 0 0.125em $primary-color;
+    }
+    img {
+      width: 25px;
+    }
+  }
+}
