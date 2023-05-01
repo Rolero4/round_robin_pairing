@@ -1,0 +1,23 @@
+.player-modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .modal-content {
+    display: flex;
+    flex-direction: column;
+    padding: 32px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+
+    .MuiTextField-root {
+      margin-bottom: 16px;
+    }
+
+    .MuiButton-root {
+      margin-top: 16px;
+      align-self: flex-end;
+    }
+  }
+}
