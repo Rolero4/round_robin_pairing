@@ -16,7 +16,13 @@ const ScheduleRow = ({ player1, player2 }: ScheduleRowProps) => {
       <div className="schedule-row">
         <div className="first-player">
           <img className="radio-icon" src={whiteIcon} alt="white" />
-          <text className="name">{`${player1.firstName} ${player1.lastName}`}</text>
+          <div className="player-data">
+            <text className="name">{`${player1.firstName} ${player1.lastName}`}</text>
+            <div className="player-rating-country">
+              <text className="rating">{`${player1.rating}`}</text>
+              <text className="country">{`${player1.country}`}</text>
+            </div>
+          </div>
         </div>
 
         <div className="result">
@@ -51,7 +57,13 @@ const ScheduleRow = ({ player1, player2 }: ScheduleRowProps) => {
         </div>
 
         <div className="second-player">
-          <text className="name">{`${player2.firstName} ${player2.lastName}`}</text>
+          <div className="player-data">
+            <text className="name">{`${player2.firstName} ${player2.lastName}`}</text>
+            <div className="player-rating-country">
+              <text className="rating">{`${player2.rating}`}</text>
+              <text className="country">{`${player2.country}`}</text>
+            </div>
+          </div>
           <img className="radio-icon" src={blackIcon} alt="white" />
         </div>
       </div>

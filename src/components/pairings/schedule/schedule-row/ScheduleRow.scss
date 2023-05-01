@@ -23,9 +23,22 @@
       margin: 0 20px;
     }
 
-    .name {
-      font-weight: 500;
-      font-size: 17px;
+    .player-data {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 50px;
+
+      .name {
+        font-weight: 500;
+        font-size: 17px;
+      }
+
+      .player-rating-country {
+        display: flex;
+        justify-content: space-around;
+        font-size: 15px;
+      }
     }
   }
 

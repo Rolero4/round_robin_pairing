@@ -6,22 +6,22 @@ import ScheduleRow from "./schedule-row/ScheduleRow";
 const players = [
   {
     id: 1,
-    firstName: "John",
-    lastName: "Doe",
+    firstName: "Magnus",
+    lastName: "Carlsen",
     country: "USA",
     rating: 1500,
   },
   {
     id: 2,
-    firstName: "Jane",
-    lastName: "Doe",
+    firstName: "Hikaru",
+    lastName: "Nakamura",
     country: "Canada",
     rating: 1600,
   },
   {
     id: 3,
-    firstName: "Bob",
-    lastName: "Smith",
+    firstName: "Jan",
+    lastName: "Krzysztof-Duda",
     country: "Australia",
     rating: 1700,
   },
