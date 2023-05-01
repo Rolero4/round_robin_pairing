@@ -1,12 +1,34 @@
 import React from "react";
 import "./Registration.scss";
+import Header from "../header/Header";
+import { Player, RegistrationTableColumns } from "../../utils/Helpers";
+import TableRow from "./table-row/TableRow";
+import { v4 as uuidv4 } from "uuid";
+
+const players: Player[] = [
+  {
+    id: 1,
+    firstName: "Magnus",
+    lastName: "Carlsen",
+    rating: 2853,
+    country: "Norway",
+  },
+  {
+    id: 2,
+    firstName: "Ian",
+    lastName: "Nepomniachtchi",
+    rating: 2795,
+    country: "Russia",
+  },
+];
 
 const Registration = () => {
+  const edit = (id: number): void => {};
+  const remove = (id: number): void => {};
+
   return (
-    <div className="Registration">
-      <div className="header">
-        <h1>Robin-round - registration</h1>
-      </div>
+    <>
+      <Header text={"Round-robin - registration"} />
       <div className="top-panel">
         <button
           id="btn-add"
@@ -20,41 +42,22 @@ const Registration = () => {
         <table className="data-table">
           <thead>
             <tr className="data-table-header">
-              <th className="data-table-header-cell">X</th>
-              <th className="data-table-header-cell">First Name</th>
-              <th className="data-table-header-cell">Last Name</th>
-              <th className="data-table-header-cell">Rating</th>
-              <th className="data-table-header-cell">Country</th>
-              <th className="data-table-header-cell">Edit / Remove</th>
+              {RegistrationTableColumns.map(column => (
+                <th className="data-table-header-cell" key={uuidv4()}>
+                  {column}
+                </th>
+              ))}
             </tr>
           </thead>
           <tbody>
-            <tr className="data-table-row">
-              <td className="data-table-cell">1</td>
-              <td className="data-table-cell">Magnus</td>
-              <td className="data-table-cell">Carlsen</td>
-              <td className="data-table-cell">2853</td>
-              <td className="data-table-cell">Norway</td>
-              <td className="data-table-cell">
-                <div className="edit-remove">
-                  <button className="btn btn-main">Edit</button>
-                  <button className="btn btn-main">Remove</button>
-                </div>
-              </td>
-            </tr>
-            <tr className="data-table-row">
-              <td className="data-table-cell">2</td>
-              <td className="data-table-cell">Ian</td>
-              <td className="data-table-cell">Nepomniachtchi</td>
-              <td className="data-table-cell">2795</td>
-              <td className="data-table-cell">Russia</td>
-              <td className="data-table-cell">
-                <div className="edit-remove">
-                  <button className="btn btn-main">Edit</button>
-                  <button className="btn btn-main">Remove</button>
-                </div>
-              </td>
-            </tr>
+            {players.map(player => (
+              <TableRow
+                player={player}
+                edit={edit}
+                remove={remove}
+                key={uuidv4()}
+              />
+            ))}
           </tbody>
         </table>
       </div>
@@ -67,7 +70,7 @@ const Registration = () => {
           Create tournament
         </button>
       </div>
-    </div>
+    </>
   );
 };
 

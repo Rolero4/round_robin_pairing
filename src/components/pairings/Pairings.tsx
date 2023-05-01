@@ -1,8 +1,12 @@
-import React from "react";
 import "./Pairings.scss";
+import Header from "../header/Header";
 
 const Pairings = () => {
-  return <></>;
+  return (
+    <>
+      <Header text={"Round-robin - pairings"} />
+    </>
+  );
 };
 
 export default Pairings;
