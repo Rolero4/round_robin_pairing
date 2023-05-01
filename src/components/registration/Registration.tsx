@@ -26,6 +26,10 @@ const staticPlayers: Player[] = [
 const Registration = () => {
   const [players, setPlayers] = useState(staticPlayers);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [playerToEdit, setPlayerToEdit] = useState<Player | undefined>(
+    undefined,
+  );
 
   const handleOpenAddModal = () => {
     setIsAddModalOpen(true);
@@ -40,7 +44,22 @@ const Registration = () => {
     ]);
   };
 
-  const edit = (id: number): void => {};
+  const handleOpenEditModal = (id: number) => {
+    setPlayerToEdit(players.find(p => p.id === id));
+    setIsEditModalOpen(true);
+  };
+  const handleCloseEditModal = () => {
+    setIsEditModalOpen(false);
+  };
+  const saveEditedPlayer = (player: Player) => {
+    setPlayers(prevPlayers =>
+      prevPlayers.map(p => (p.id === player.id ? player : p)),
+    );
+  };
+
+  const edit = (id: number): void => {
+    handleOpenEditModal(id);
+  };
   const remove = (id: number): void => {
     setPlayers(prevPlayers =>
       prevPlayers.filter(p => p.id !== id).map((p, i) => ({ ...p, id: i + 1 })),
@@ -50,7 +69,18 @@ const Registration = () => {
   return (
     <>
       {isAddModalOpen && (
-        <PlayerModal onClose={handleCloseAddModal} savePlayer={addNewPlayer} />
+        <PlayerModal
+          onClose={handleCloseAddModal}
+          savePlayer={addNewPlayer}
+          playerToEdit={undefined}
+        />
+      )}
+      {isEditModalOpen && (
+        <PlayerModal
+          onClose={handleCloseEditModal}
+          savePlayer={saveEditedPlayer}
+          playerToEdit={playerToEdit}
+        />
       )}
       <Header text={"Round-robin - registration"} />
       <div className="top-panel">

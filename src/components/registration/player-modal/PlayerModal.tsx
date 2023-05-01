@@ -6,9 +6,11 @@ import "./PlayerModal.scss";
 const PlayerModal = ({
   onClose,
   savePlayer,
+  playerToEdit,
 }: {
   onClose: () => void;
   savePlayer: (playerData: Player) => void;
+  playerToEdit: Player | undefined;
 }) => {
   const [playerData, setPlayerData] = useState<Player>({
     id: 0,
@@ -18,6 +20,12 @@ const PlayerModal = ({
     rating: 0,
   });
   const [requiredFieldsFilled, setRequiredFieldsFilled] = useState(false);
+
+  useEffect(() => {
+    if (playerToEdit) {
+      setPlayerData(playerToEdit);
+    }
+  }, [playerToEdit]);
 
   useEffect(() => {
     if (playerData.firstName && playerData.lastName) {
