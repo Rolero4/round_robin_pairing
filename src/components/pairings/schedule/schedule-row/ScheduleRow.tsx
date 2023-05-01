@@ -10,14 +10,13 @@ interface ScheduleRowProps {
   player2: Player;
 }
 
-// const ScheduleRow = ({ player1, player2 }: ScheduleRowProps) => {
-const ScheduleRow = () => {
+const ScheduleRow = ({ player1, player2 }: ScheduleRowProps) => {
   return (
     <>
       <div className="schedule-row">
         <div className="first-player">
           <img className="radio-icon" src={whiteIcon} alt="white" />
-          <text className="name">Hikaru Nakamura</text>
+          <text className="name">{`${player1.firstName} ${player1.lastName}`}</text>
         </div>
 
         <div className="result">
@@ -52,7 +51,7 @@ const ScheduleRow = () => {
         </div>
 
         <div className="second-player">
-          <text className="name">Magnus Carlsen</text>
+          <text className="name">{`${player2.firstName} ${player2.lastName}`}</text>
           <img className="radio-icon" src={blackIcon} alt="white" />
         </div>
       </div>
