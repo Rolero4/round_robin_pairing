@@ -22,7 +22,7 @@ const TableRow = ({ player, edit, remove }: TableRowProps) => {
           <button className="btn btn-main" onClick={() => edit(player.id)}>
             Edit
           </button>
-          <button className="btn btn-main" onClick={() => remove(player.id)}>
+          <button className="btn btn-warning" onClick={() => remove(player.id)}>
             Remove
           </button>
         </div>

@@ -31,6 +31,14 @@ code {
     background-color: #8a4fff;
   }
 
+  &-warning {
+    background-color: #d62222;
+
+    &:hover {
+      color: #d62222 !important;
+    }
+  }
+
   &-bottom {
     background-color: #416788;
 
