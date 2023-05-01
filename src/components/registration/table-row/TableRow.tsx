@@ -1,4 +1,4 @@
-import { Player } from "../../../utils/Helpers";
+import { Player, RegistrationTableColumnKeys } from "../../../utils/Helpers";
 import "./TableRow.scss";
 
 interface TableRowProps {
@@ -10,7 +10,7 @@ interface TableRowProps {
 const TableRow = ({ player, edit, remove }: TableRowProps) => {
   return (
     <tr className="data-table-row">
-      {Object.keys(player).map(key => {
+      {RegistrationTableColumnKeys.map(key => {
         return (
           <td className="data-table-cell" key={key}>
             {player[key as keyof Player]}
