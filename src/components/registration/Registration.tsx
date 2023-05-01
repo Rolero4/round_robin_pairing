@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Registration.scss";
 import Header from "../header/Header";
 import { Player, RegistrationTableColumns } from "../../utils/Helpers";
 import TableRow from "./table-row/TableRow";
 import { v4 as uuidv4 } from "uuid";
+import PlayerModal from "./player-modal/PlayerModal";
 
-const players: Player[] = [
+const staticPlayers: Player[] = [
   {
     id: 1,
     firstName: "Magnus",
@@ -23,17 +24,70 @@ const players: Player[] = [
 ];
 
 const Registration = () => {
-  const edit = (id: number): void => {};
-  const remove = (id: number): void => {};
+  const [players, setPlayers] = useState(staticPlayers);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [playerToEdit, setPlayerToEdit] = useState<Player | undefined>(
+    undefined,
+  );
+
+  const handleOpenAddModal = () => {
+    setIsAddModalOpen(true);
+  };
+  const handleCloseAddModal = () => {
+    setIsAddModalOpen(false);
+  };
+  const addNewPlayer = (player: Player) => {
+    setPlayers((prevPlayers: Player[]) => [
+      ...prevPlayers,
+      { ...player, id: prevPlayers.length + 1 },
+    ]);
+  };
+
+  const handleOpenEditModal = (id: number) => {
+    setPlayerToEdit(players.find(p => p.id === id));
+    setIsEditModalOpen(true);
+  };
+  const handleCloseEditModal = () => {
+    setIsEditModalOpen(false);
+  };
+  const saveEditedPlayer = (player: Player) => {
+    setPlayers(prevPlayers =>
+      prevPlayers.map(p => (p.id === player.id ? player : p)),
+    );
+  };
+
+  const edit = (id: number): void => {
+    handleOpenEditModal(id);
+  };
+  const remove = (id: number): void => {
+    setPlayers(prevPlayers =>
+      prevPlayers.filter(p => p.id !== id).map((p, i) => ({ ...p, id: i + 1 })),
+    );
+  };
 
   return (
     <>
+      {isAddModalOpen && (
+        <PlayerModal
+          onClose={handleCloseAddModal}
+          savePlayer={addNewPlayer}
+          playerToEdit={undefined}
+        />
+      )}
+      {isEditModalOpen && (
+        <PlayerModal
+          onClose={handleCloseEditModal}
+          savePlayer={saveEditedPlayer}
+          playerToEdit={playerToEdit}
+        />
+      )}
       <Header text={"Round-robin - registration"} />
       <div className="top-panel">
         <button
           id="btn-add"
           className="btn btn-main"
-          // onClick={ }
+          onClick={handleOpenAddModal}
         >
           Add player
         </button>
