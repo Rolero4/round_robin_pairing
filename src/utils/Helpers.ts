@@ -23,3 +23,21 @@ export const RegistrationTableColumnKeys = [
   "rating",
   "country",
 ];
+
+export interface Game {
+  round: number;
+  white: Player;
+  whiteScore?: number;
+  black: Player;
+  blackScore?: number;
+}
+
+export interface Round {
+  games: Game[];
+  isEditable: boolean;
+}
+
+export interface Tournament {
+  rounds: Round[];
+  isFinished: boolean;
+}

@@ -1,35 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, Dispatch } from "react";
 import "./Registration.scss";
 import Header from "../header/Header";
 import { Player, RegistrationTableColumns } from "../../utils/Helpers";
 import TableRow from "./table-row/TableRow";
 import { v4 as uuidv4 } from "uuid";
 import PlayerModal from "./player-modal/PlayerModal";
+import { useNavigate, useOutletContext } from "react-router-dom";
 
-const staticPlayers: Player[] = [
-  {
-    id: 1,
-    firstName: "Magnus",
-    lastName: "Carlsen",
-    rating: 2853,
-    country: "Norway",
-  },
-  {
-    id: 2,
-    firstName: "Ian",
-    lastName: "Nepomniachtchi",
-    rating: 2795,
-    country: "Russia",
-  },
-];
+interface RouterOutletContext {
+  players: Player[];
+  setPlayers: Dispatch<React.SetStateAction<Player[]>>;
+}
 
 const Registration = () => {
-  const [players, setPlayers] = useState(staticPlayers);
+  const { players, setPlayers } = useOutletContext<RouterOutletContext>();
+
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [playerToEdit, setPlayerToEdit] = useState<Player | undefined>(
     undefined,
   );
+
+  const navigate = useNavigate();
 
   const handleOpenAddModal = () => {
     setIsAddModalOpen(true);
@@ -52,7 +44,7 @@ const Registration = () => {
     setIsEditModalOpen(false);
   };
   const saveEditedPlayer = (player: Player) => {
-    setPlayers(prevPlayers =>
+    setPlayers((prevPlayers: Player[]) =>
       prevPlayers.map(p => (p.id === player.id ? player : p)),
     );
   };
@@ -119,7 +111,7 @@ const Registration = () => {
         <button
           id="btn-create"
           className="btn btn-bottom"
-          // onClick={ }
+          onClick={() => navigate("/pairings")}
         >
           Create tournament
         </button>
