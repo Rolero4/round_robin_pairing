@@ -1,12 +1,11 @@
 import React from "react";
 import "./Registration.scss";
+import Header from "../header/Header";
 
 const Registration = () => {
   return (
-    <div className="Registration">
-      <div className="header">
-        <h1>Robin-round - registration</h1>
-      </div>
+    <>
+      <Header text={"Round-robin - registration"} />
       <div className="top-panel">
         <button
           id="btn-add"
@@ -67,7 +66,7 @@ const Registration = () => {
           Create tournament
         </button>
       </div>
-    </div>
+    </>
   );
 };
 
