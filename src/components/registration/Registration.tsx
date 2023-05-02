@@ -80,6 +80,12 @@ const Registration = () => {
           id="btn-add"
           className="btn btn-main"
           onClick={handleOpenAddModal}
+          disabled={players.length === 10}
+          title={
+            players.length === 10
+              ? "Maximum number of players reached"
+              : "Add new player"
+          }
         >
           Add player
         </button>
@@ -112,6 +118,8 @@ const Registration = () => {
           id="btn-create"
           className="btn btn-bottom"
           onClick={() => navigate("/pairings")}
+          disabled={players.length < 3}
+          title={players.length < 3 ? "Not enough players" : "Create pairings"}
         >
           Create tournament
         </button>
