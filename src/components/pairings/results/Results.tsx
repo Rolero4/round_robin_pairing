@@ -1,4 +1,3 @@
-import React from "react";
 import "./Results.scss";
 import { Player, ResultsTableColumns } from "../../../utils/Helpers";
 import ResultsRow from "./results-row/ResultsRow";

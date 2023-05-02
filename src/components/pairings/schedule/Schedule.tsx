@@ -1,4 +1,3 @@
-import React from "react";
 import "./Schedule.scss";
 import ScheduleRow from "./schedule-row/ScheduleRow";
 // import { Player } from "../../../utils/Helpers";
