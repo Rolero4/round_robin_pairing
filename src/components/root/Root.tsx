@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import "./Root.scss";
 import { Player, Round, Tournament } from "../../utils/Helpers";
@@ -21,11 +21,19 @@ const staticPlayers: Player[] = [
 ];
 
 const Root = () => {
-  const [tournament, setTournament] = React.useState<Tournament>({
+  const [tournament, setTournament] = useState<Tournament>({
     rounds: [] as Round[],
     isFinished: false,
   });
-  const [players, setPlayers] = React.useState<Player[]>(staticPlayers);
+  const [players, setPlayers] = useState<Player[]>(staticPlayers);
+
+  useEffect(() => {
+    updateLocalStorage("players", players);
+  }, [players]);
+
+  const updateLocalStorage = (key: string, value: object) => {
+    localStorage.setItem(key, JSON.stringify(value));
+  };
 
   return (
     <>
@@ -36,6 +44,7 @@ const Root = () => {
             setTournament,
             players,
             setPlayers,
+            updateLocalStorage,
           }}
         />
       </main>

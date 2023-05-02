@@ -1,4 +1,4 @@
-import React, { useState, Dispatch } from "react";
+import React, { useState, useEffect, Dispatch, SetStateAction } from "react";
 import "./Registration.scss";
 import Header from "../header/Header";
 import { Player, RegistrationTableColumns } from "../../utils/Helpers";
@@ -9,17 +9,28 @@ import { useNavigate, useOutletContext } from "react-router-dom";
 
 interface RouterOutletContext {
   players: Player[];
-  setPlayers: Dispatch<React.SetStateAction<Player[]>>;
+  setPlayers: Dispatch<SetStateAction<Player[]>>;
+  updateLocalStorage: (key: string, value: object) => void;
 }
 
 const Registration = () => {
-  const { players, setPlayers } = useOutletContext<RouterOutletContext>();
+  const { players, setPlayers, updateLocalStorage } =
+    useOutletContext<RouterOutletContext>();
 
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [playerToEdit, setPlayerToEdit] = useState<Player | undefined>(
     undefined,
   );
+
+  useEffect(() => {
+    const localStoragePlayers = localStorage.getItem("players");
+    if (localStoragePlayers) {
+      setPlayers(JSON.parse(localStoragePlayers));
+    } else {
+      updateLocalStorage("players", players);
+    }
+  }, []);
 
   const navigate = useNavigate();
 
