@@ -24,6 +24,25 @@ export const RegistrationTableColumnKeys = [
   "country",
 ];
 
+export const ResultsTableColumns = [
+  "Pos",
+  "Fed",
+  "Name",
+  "Rtg",
+  "1", // ZMIENIC NA TWORZENIE KOLUMN NA PODSTAWIE ILOSCI ZAWODNIKOW
+  "2",
+  "3",
+  "Pts",
+];
+
+export const ResultsTableColumnKeys = [ // ZMIENIC NA DOCELOWE
+  "id",
+  "firstName",
+  "lastName",
+  "rating",
+  "country",
+];
+
 export interface Game {
   round: number;
   white: Player;

@@ -7,7 +7,8 @@ const Pairings = () => {
   return (
     <>
       <Header text={"Round-robin - pairings"} />
-      <Schedule />
+      {/* <Schedule /> */}
+      <Results />
     </>
   );
 };
