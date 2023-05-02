@@ -1,4 +1,3 @@
-import React from "react";
 import { Player } from "../../../../utils/Helpers";
 import whiteIcon from "../../../../assets/crown-white.png";
 import blackIcon from "../../../../assets/crown-black.png";

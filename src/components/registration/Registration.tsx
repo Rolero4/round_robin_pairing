@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Dispatch, SetStateAction } from "react";
+import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import "./Registration.scss";
 import Header from "../header/Header";
 import { Player, RegistrationTableColumns } from "../../utils/Helpers";

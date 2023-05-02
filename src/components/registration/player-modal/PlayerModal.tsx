@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Modal, TextField } from "@material-ui/core";
 import { Player } from "../../../utils/Helpers";
 import "./PlayerModal.scss";
