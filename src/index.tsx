@@ -13,8 +13,7 @@ import Pairings from "./components/pairings/Pairings";
 const router = createBrowserRouter([
   {
     path: "/",
-    // element: <Root />,
-    element: <Pairings />,
+    element: <Root />,
     children: [
       {
         index: true,
