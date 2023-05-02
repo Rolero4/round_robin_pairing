@@ -41,10 +41,14 @@ const Registration = () => {
     setIsAddModalOpen(false);
   };
   const addNewPlayer = (player: Player) => {
-    setPlayers((prevPlayers: Player[]) => [
-      ...prevPlayers,
-      { ...player, id: prevPlayers.length + 1 },
-    ]);
+    setPlayers((prevPlayers: Player[]) => {
+      const newPlayers = [
+        ...prevPlayers,
+        { ...player, id: prevPlayers.length + 1 },
+      ];
+      updateLocalStorage("players", newPlayers);
+      return newPlayers;
+    });
   };
 
   const handleOpenEditModal = (id: number) => {
@@ -55,18 +59,26 @@ const Registration = () => {
     setIsEditModalOpen(false);
   };
   const saveEditedPlayer = (player: Player) => {
-    setPlayers((prevPlayers: Player[]) =>
-      prevPlayers.map(p => (p.id === player.id ? player : p)),
-    );
+    setPlayers((prevPlayers: Player[]) => {
+      const newPlayers = prevPlayers.map(p =>
+        p.id === player.id ? player : p,
+      );
+      updateLocalStorage("players", newPlayers);
+      return newPlayers;
+    });
   };
 
   const edit = (id: number): void => {
     handleOpenEditModal(id);
   };
   const remove = (id: number): void => {
-    setPlayers(prevPlayers =>
-      prevPlayers.filter(p => p.id !== id).map((p, i) => ({ ...p, id: i + 1 })),
-    );
+    setPlayers((prevPlayers: Player[]) => {
+      const newPlayers = prevPlayers
+        .filter(p => p.id !== id)
+        .map((p, i) => ({ ...p, id: i + 1 }));
+      updateLocalStorage("players", newPlayers);
+      return newPlayers;
+    });
   };
 
   return (
