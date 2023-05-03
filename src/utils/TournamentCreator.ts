@@ -20,8 +20,7 @@ import { Player, Round, Game, Tournament } from "./Helpers";
 // }
 
 export function doubleRoundRobin(players: Player[]): Tournament {
-  const playerCount = players.length;
-  if (playerCount % 2 !== 0) {
+  if (players.length % 2 !== 0) {
     players.push({
       id: -1,
       firstName: "Bye",
@@ -31,6 +30,7 @@ export function doubleRoundRobin(players: Player[]): Tournament {
       score: 0,
     });
   }
+  const playerCount = players.length;
 
   const rounds: Round[] = [];
   const roundCount = playerCount - 1;
@@ -61,7 +61,7 @@ export function doubleRoundRobin(players: Player[]): Tournament {
       const swappedGame: Game = {
         round: roundCount * 2 - i,
         white: game.black!,
-        black: game.white!,
+        black: game.white,
       };
       round.games.push(swappedGame);
     });

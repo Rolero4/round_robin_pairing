@@ -1,22 +1,27 @@
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import "./Registration.scss";
 import Header from "../header/Header";
-import { Player, RegistrationTableColumns, Tournament } from "../../utils/Helpers";
+import {
+  Player,
+  RegistrationTableColumns,
+  Tournament,
+} from "../../utils/Helpers";
 import TableRow from "./table-row/TableRow";
 import { v4 as uuidv4 } from "uuid";
 import PlayerModal from "./player-modal/PlayerModal";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import { doubleRoundRobin } from "../../utils/TournamentCreator";
 
-
 interface RouterOutletContext {
   players: Player[];
   setPlayers: Dispatch<SetStateAction<Player[]>>;
   updateLocalStorage: (key: string, value: object) => void;
+  tournament: Tournament;
+  setTournament: Dispatch<SetStateAction<Tournament>>;
 }
 
 const Registration = () => {
-  const { players, setPlayers, updateLocalStorage } =
+  const { players, setPlayers, updateLocalStorage, tournament, setTournament } =
     useOutletContext<RouterOutletContext>();
 
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -83,12 +88,13 @@ const Registration = () => {
     });
   };
 
-  const onCreateTournament = (): void =>{
-    const tournament: Tournament = doubleRoundRobin(players)
-    console.log(tournament)
-    navigate("/pairings")
-  }
-
+  const onCreateTournament = (): void => {
+    const tourney: Tournament = doubleRoundRobin(players);
+    setTournament(tourney);
+    updateLocalStorage("tournament", tournament);
+    console.log(tournament);
+    navigate("/pairings");
+  };
 
   return (
     <>
