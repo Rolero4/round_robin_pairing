@@ -1,8 +1,9 @@
 import "./Schedule.scss";
 import ScheduleRow from "./schedule-row/ScheduleRow";
-// import { Player } from "../../../utils/Helpers";
+import { Player } from "../../../utils/Helpers";
+import { v4 as uuidv4 } from "uuid";
 
-const players = [
+const players: Player[] = [
   {
     id: 1,
     firstName: "Magnus",
@@ -29,11 +30,13 @@ const players = [
 const Schedule = () => {
   return (
     <>
+      <div>{/* TODO: Display header with round number */}</div>
       <div className="schedule-panel">
         {players.map(player => (
-          <ScheduleRow player1={player} player2={player} />
+          <ScheduleRow player1={player} player2={player} key={uuidv4()} />
         ))}
       </div>
+      <div>{/* TODO: Add pagination */}</div>
     </>
   );
 };
