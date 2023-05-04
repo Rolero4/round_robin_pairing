@@ -2,7 +2,12 @@ import "./Pairings.scss";
 import Results from "./results/Results";
 import Schedule from "./schedule/Schedule";
 import Header from "../header/Header";
-import { Player, TabNames, Tournament } from "../../utils/Helpers";
+import {
+  Player,
+  TabNames,
+  Tournament,
+  capitalizeFirstLetter,
+} from "../../utils/Helpers";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 
@@ -18,7 +23,7 @@ const Pairings = () => {
   const { players, setPlayers, tournament, setTournament, updateLocalStorage } =
     useOutletContext<RouterOutletContext>();
 
-  const [activeTab, setActiveTab] = useState<TabNames>(TabNames.Results);
+  const [activeTab, setActiveTab] = useState<TabNames>(TabNames.Schedule);
 
   useEffect(() => {
     const localStoragePlayers = localStorage.getItem("players");
@@ -54,16 +59,16 @@ const Pairings = () => {
       <Header text={"Round-robin - pairings"} />
       <div className="pairings-top-panel">
         <div
-          className={activeTab === TabNames.Results ? "tab tab-active" : "tab"}
-          onClick={() => handleTabClick(TabNames.Results)}
-        >
-          Pairings
-        </div>
-        <div
           className={activeTab === TabNames.Schedule ? "tab tab-active" : "tab"}
           onClick={() => handleTabClick(TabNames.Schedule)}
         >
-          Schedule
+          {capitalizeFirstLetter(TabNames.Schedule)}
+        </div>
+        <div
+          className={activeTab === TabNames.Results ? "tab tab-active" : "tab"}
+          onClick={() => handleTabClick(TabNames.Results)}
+        >
+          {capitalizeFirstLetter(TabNames.Results)}
         </div>
       </div>
       <div className="pairings-main-panel">
