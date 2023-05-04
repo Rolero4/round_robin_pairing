@@ -35,7 +35,8 @@ export const ResultsTableColumns = [
   "Pts",
 ];
 
-export const ResultsTableColumnKeys = [ // ZMIENIC NA DOCELOWE
+export const ResultsTableColumnKeys = [
+  // ZMIENIC NA DOCELOWE
   "id",
   "firstName",
   "lastName",
@@ -47,7 +48,7 @@ export interface Game {
   round: number;
   white: Player;
   whiteScore?: number;
-  black: Player;
+  black?: Player;
   blackScore?: number;
 }
 

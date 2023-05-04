@@ -1,20 +1,27 @@
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import "./Registration.scss";
 import Header from "../header/Header";
-import { Player, RegistrationTableColumns } from "../../utils/Helpers";
+import {
+  Player,
+  RegistrationTableColumns,
+  Tournament,
+} from "../../utils/Helpers";
 import TableRow from "./table-row/TableRow";
 import { v4 as uuidv4 } from "uuid";
 import PlayerModal from "./player-modal/PlayerModal";
 import { useNavigate, useOutletContext } from "react-router-dom";
+import { doubleRoundRobin } from "../../utils/TournamentCreator";
 
 interface RouterOutletContext {
   players: Player[];
   setPlayers: Dispatch<SetStateAction<Player[]>>;
   updateLocalStorage: (key: string, value: object) => void;
+  tournament: Tournament;
+  setTournament: Dispatch<SetStateAction<Tournament>>;
 }
 
 const Registration = () => {
-  const { players, setPlayers, updateLocalStorage } =
+  const { players, setPlayers, updateLocalStorage, tournament, setTournament } =
     useOutletContext<RouterOutletContext>();
 
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -52,7 +59,7 @@ const Registration = () => {
   };
 
   const handleOpenEditModal = (id: number) => {
-    setPlayerToEdit(players.find(p => p.id === id));
+    setPlayerToEdit(players.find((p: Player) => p.id === id));
     setIsEditModalOpen(true);
   };
   const handleCloseEditModal = () => {
@@ -79,6 +86,14 @@ const Registration = () => {
       updateLocalStorage("players", newPlayers);
       return newPlayers;
     });
+  };
+
+  const onCreateTournament = (): void => {
+    const tourney: Tournament = doubleRoundRobin(players);
+    setTournament(tourney);
+    updateLocalStorage("tournament", tournament);
+    console.log(tournament);
+    navigate("/pairings");
   };
 
   return (
@@ -125,7 +140,7 @@ const Registration = () => {
             </tr>
           </thead>
           <tbody>
-            {players.map(player => (
+            {players.map((player: Player) => (
               <TableRow
                 player={player}
                 edit={edit}
@@ -140,7 +155,7 @@ const Registration = () => {
         <button
           id="btn-create"
           className="btn btn-bottom"
-          onClick={() => navigate("/pairings")}
+          onClick={onCreateTournament}
           disabled={players.length < 3}
           title={players.length < 3 ? "Not enough players" : "Create pairings"}
         >
