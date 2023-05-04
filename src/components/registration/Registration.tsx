@@ -113,7 +113,7 @@ const Registration = () => {
         />
       )}
       <Header text={"Round-robin - registration"} />
-      <div className="top-panel">
+      <div className="registration-top-panel">
         <button
           id="btn-add"
           className="btn btn-main"
@@ -128,7 +128,7 @@ const Registration = () => {
           Add player
         </button>
       </div>
-      <div className="main-panel">
+      <div className="registration-main-panel">
         <table className="data-table">
           <thead>
             <tr className="data-table-header">
@@ -151,7 +151,7 @@ const Registration = () => {
           </tbody>
         </table>
       </div>
-      <div className="bottom-panel">
+      <div className="registration-bottom-panel">
         <button
           id="btn-create"
           className="btn btn-bottom"
