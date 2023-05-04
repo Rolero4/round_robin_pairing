@@ -16,19 +16,19 @@ const ScheduleRow = ({ player1, player2 }: ScheduleRowProps) => {
         <div className="first-player">
           <img className="radio-icon" src={whiteIcon} alt="white" />
           <div className="player-data">
-            <text className="name">{`${player1.firstName} ${player1.lastName}`}</text>
+            <span className="name">{`${player1.firstName} ${player1.lastName}`}</span>
             <div className="player-rating-country">
-              <text className="rating">{`${player1.rating}`}</text>
-              <text className="country">{`${player1.country}`}</text>
+              <span className="rating">{`${player1.rating}`}</span>
+              <span className="country">{`${player1.country}`}</span>
             </div>
           </div>
         </div>
 
         <div className="result">
           <div className="result-text">
-            <text className="res-first-player">1</text>
+            <span className="res-first-player">1</span>
             <div className="divider"></div>
-            <text className="res-second-player">0</text>
+            <span className="res-second-player">0</span>
           </div>
 
           <div className="radio-container">
@@ -57,10 +57,10 @@ const ScheduleRow = ({ player1, player2 }: ScheduleRowProps) => {
 
         <div className="second-player">
           <div className="player-data">
-            <text className="name">{`${player2.firstName} ${player2.lastName}`}</text>
+            <span className="name">{`${player2.firstName} ${player2.lastName}`}</span>
             <div className="player-rating-country">
-              <text className="rating">{`${player2.rating}`}</text>
-              <text className="country">{`${player2.country}`}</text>
+              <span className="rating">{`${player2.rating}`}</span>
+              <span className="country">{`${player2.country}`}</span>
             </div>
           </div>
           <img className="radio-icon" src={blackIcon} alt="white" />

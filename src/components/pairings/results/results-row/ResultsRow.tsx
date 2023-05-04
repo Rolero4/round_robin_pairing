@@ -1,4 +1,4 @@
-import { Player, ResultsTableColumnKeys } from "../../../../utils/Helpers";
+import { Player } from "../../../../utils/Helpers";
 import "./ResultsRow.scss";
 
 interface ResultsRowProps {
@@ -9,7 +9,6 @@ const ResultsRow = ({ player }: ResultsRowProps) => {
   return (
     <>
       <tr className="data-table-row">
-        {" "}
         {/* docelowo użyć ResultsTableColumnKeys */}
         <td className="data-table-cell">{player.id}</td>
         <td className="data-table-cell">{player.country}</td>

@@ -15,13 +15,13 @@ import { doubleRoundRobin } from "../../utils/TournamentCreator";
 interface RouterOutletContext {
   players: Player[];
   setPlayers: Dispatch<SetStateAction<Player[]>>;
-  updateLocalStorage: (key: string, value: object) => void;
   tournament: Tournament;
   setTournament: Dispatch<SetStateAction<Tournament>>;
+  updateLocalStorage: (key: string, value: object) => void;
 }
 
 const Registration = () => {
-  const { players, setPlayers, updateLocalStorage, tournament, setTournament } =
+  const { players, setPlayers, setTournament, updateLocalStorage } =
     useOutletContext<RouterOutletContext>();
 
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -36,6 +36,12 @@ const Registration = () => {
       setPlayers(JSON.parse(localStoragePlayers));
     } else {
       updateLocalStorage("players", players);
+    }
+
+    const localStorageTournament = localStorage.getItem("tournament");
+    if (localStorageTournament) {
+      setTournament(JSON.parse(localStorageTournament));
+      navigate("/pairings");
     }
   }, []);
 
@@ -91,8 +97,7 @@ const Registration = () => {
   const onCreateTournament = (): void => {
     const tourney: Tournament = doubleRoundRobin(players);
     setTournament(tourney);
-    updateLocalStorage("tournament", tournament);
-    console.log(tournament);
+    updateLocalStorage("tournament", tourney);
     navigate("/pairings");
   };
 
@@ -113,7 +118,7 @@ const Registration = () => {
         />
       )}
       <Header text={"Round-robin - registration"} />
-      <div className="top-panel">
+      <div className="registration-top-panel">
         <button
           id="btn-add"
           className="btn btn-main"
@@ -128,7 +133,7 @@ const Registration = () => {
           Add player
         </button>
       </div>
-      <div className="main-panel">
+      <div className="registration-main-panel">
         <table className="data-table">
           <thead>
             <tr className="data-table-header">
@@ -151,7 +156,7 @@ const Registration = () => {
           </tbody>
         </table>
       </div>
-      <div className="bottom-panel">
+      <div className="registration-bottom-panel">
         <button
           id="btn-create"
           className="btn btn-bottom"

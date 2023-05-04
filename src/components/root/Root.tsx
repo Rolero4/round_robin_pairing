@@ -7,6 +7,7 @@ const Root = () => {
   const [tournament, setTournament] = useState<Tournament>({
     rounds: [] as Round[],
     isFinished: false,
+    currentRoundIndex: 0,
   });
   const [players, setPlayers] = useState<Player[]>([]);
 

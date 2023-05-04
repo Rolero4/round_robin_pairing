@@ -44,6 +44,11 @@ export const ResultsTableColumnKeys = [
   "country",
 ];
 
+export enum TabNames {
+  Results = "results",
+  Schedule = "schedule",
+}
+
 export interface Game {
   round: number;
   white: Player;
@@ -60,4 +65,9 @@ export interface Round {
 export interface Tournament {
   rounds: Round[];
   isFinished: boolean;
+  currentRoundIndex: number;
 }
+
+export const capitalizeFirstLetter = (string: string): string => {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+};
