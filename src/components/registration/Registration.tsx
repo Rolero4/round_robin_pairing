@@ -15,13 +15,13 @@ import { doubleRoundRobin } from "../../utils/TournamentCreator";
 interface RouterOutletContext {
   players: Player[];
   setPlayers: Dispatch<SetStateAction<Player[]>>;
-  updateLocalStorage: (key: string, value: object) => void;
   tournament: Tournament;
   setTournament: Dispatch<SetStateAction<Tournament>>;
+  updateLocalStorage: (key: string, value: object) => void;
 }
 
 const Registration = () => {
-  const { players, setPlayers, updateLocalStorage, tournament, setTournament } =
+  const { players, setPlayers, setTournament, updateLocalStorage } =
     useOutletContext<RouterOutletContext>();
 
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -36,6 +36,12 @@ const Registration = () => {
       setPlayers(JSON.parse(localStoragePlayers));
     } else {
       updateLocalStorage("players", players);
+    }
+
+    const localStorageTournament = localStorage.getItem("tournament");
+    if (localStorageTournament) {
+      setTournament(JSON.parse(localStorageTournament));
+      navigate("/pairings");
     }
   }, []);
 
@@ -91,8 +97,7 @@ const Registration = () => {
   const onCreateTournament = (): void => {
     const tourney: Tournament = doubleRoundRobin(players);
     setTournament(tourney);
-    updateLocalStorage("tournament", tournament);
-    console.log(tournament);
+    updateLocalStorage("tournament", tourney);
     navigate("/pairings");
   };
 
