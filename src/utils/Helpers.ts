@@ -44,6 +44,11 @@ export const ResultsTableColumnKeys = [
   "country",
 ];
 
+export enum TabNames {
+  Results = "results",
+  Schedule = "schedule",
+}
+
 export interface Game {
   round: number;
   white: Player;

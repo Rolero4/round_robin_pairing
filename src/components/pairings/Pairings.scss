@@ -1,0 +1,45 @@
+.pairings-top-panel {
+  display: flex;
+  justify-content: center;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+
+  .tab {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 500;
+    color: #616161;
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
+    padding-block: 10px;
+
+    &:hover {
+      color: #1976d2;
+      background-color: #eeeeee;
+    }
+
+    &-active {
+      color: #1976d2;
+      background-color: #fff;
+      border-bottom: 2px solid #1976d2;
+    }
+  }
+}
+
+.pairings-main-panel {
+  padding-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.pairings-bottom-panel {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 30px 0;
+  background-color: #fff;
+  box-shadow: 0 -4px 4px rgba(0, 0, 0, 0.1);
+}
