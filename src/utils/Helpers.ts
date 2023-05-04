@@ -60,4 +60,5 @@ export interface Round {
 export interface Tournament {
   rounds: Round[];
   isFinished: boolean;
+  currentRoundIndex: number;
 }
