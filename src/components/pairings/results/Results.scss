@@ -1,3 +1,11 @@
-.data-table-header-cell {
-  text-align: left;
+.results-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+  .data-table-header-cell {
+    text-align: left;
+  }
 }

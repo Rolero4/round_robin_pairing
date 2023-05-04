@@ -29,7 +29,7 @@ const players = [
 const Schedule = () => {
   return (
     <>
-      <div className="schedule-data">
+      <div className="schedule-panel">
         {players.map(player => (
           <ScheduleRow player1={player} player2={player} />
         ))}
