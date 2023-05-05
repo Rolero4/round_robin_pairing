@@ -74,7 +74,28 @@ const Pairings = () => {
       <div className="pairings-main-panel">
         {activeTab === TabNames.Results && <Results />}
         {activeTab === TabNames.Schedule && <Schedule />}
+
+        <div className="prev-next">
+          <button
+            id="btn-previous"
+            className="btn btn-main"
+            // onClick={ }
+            title="Previous"
+          >
+            Previous
+          </button>
+
+          <button
+            id="btn-next"
+            className="btn btn-main"
+            // onClick={ }
+            title="Next"
+          >
+            Next
+          </button>
+        </div>
       </div>
+
       <div className="pairings-bottom-panel">
         <button
           id="btn-cancel"

@@ -31,7 +31,20 @@
 .pairings-main-panel {
   padding-top: 20px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+
+  .prev-next {
+    margin-top: 30px;
+    width: 30%;
+    display: flex;
+    justify-content: space-around;
+
+    button {
+      width: 140px;
+    }
+  }
 }
 
 .pairings-bottom-panel {
@@ -42,4 +55,25 @@
   padding: 30px 0;
   background-color: #fff;
   box-shadow: 0 -4px 4px rgba(0, 0, 0, 0.1);
+
+  a {
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 16px;
+  }
+
+  a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+
+  .previous {
+    background-color: #f1f1f1;
+    color: black;
+  }
+
+  .next {
+    background-color: #04aa6d;
+    color: white;
+  }
 }
