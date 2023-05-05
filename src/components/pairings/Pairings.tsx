@@ -4,26 +4,30 @@ import Schedule from "./schedule/Schedule";
 import Header from "../header/Header";
 import {
   Player,
+  Round,
   TabNames,
   Tournament,
   capitalizeFirstLetter,
 } from "../../utils/Helpers";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
+import ConfirmationModal from "./confirmation-modal/ConfirmationModal";
+
+interface RouterOutletContext {
+  players: Player[];
+  setPlayers: Dispatch<SetStateAction<Player[]>>;
+  tournament: Tournament;
+  setTournament: Dispatch<SetStateAction<Tournament>>;
+  updateLocalStorage: (key: string, value: object) => void;
+}
 
 const Pairings = () => {
-  interface RouterOutletContext {
-    players: Player[];
-    setPlayers: Dispatch<SetStateAction<Player[]>>;
-    tournament: Tournament;
-    setTournament: Dispatch<SetStateAction<Tournament>>;
-    updateLocalStorage: (key: string, value: object) => void;
-  }
-
   const { players, setPlayers, tournament, setTournament, updateLocalStorage } =
     useOutletContext<RouterOutletContext>();
 
   const [activeTab, setActiveTab] = useState<TabNames>(TabNames.Schedule);
+  const [isCancelTournamentModalOpen, setIsCancelTournamentModalOpen] =
+    useState(false);
 
   useEffect(() => {
     const localStoragePlayers = localStorage.getItem("players");
@@ -46,8 +50,13 @@ const Pairings = () => {
   const navigate = useNavigate();
 
   const onCancelTournament = () => {
-    // TODO: implement functionality
-    // remember to add confirmation modal
+    localStorage.removeItem("tournament");
+    setTournament({
+      rounds: [] as Round[],
+      isFinished: false,
+      currentRoundIndex: 0,
+    });
+    navigate("/");
   };
 
   const handleTabClick = (tab: TabNames) => {
@@ -56,6 +65,12 @@ const Pairings = () => {
 
   return (
     <>
+      {isCancelTournamentModalOpen && (
+        <ConfirmationModal
+          onClose={() => setIsCancelTournamentModalOpen(false)}
+          onCancelTournament={onCancelTournament}
+        ></ConfirmationModal>
+      )}
       <Header text={"Round-robin - pairings"} />
       <div className="pairings-top-panel">
         <div
@@ -82,7 +97,7 @@ const Pairings = () => {
         <button
           id="btn-cancel"
           className="btn btn-warning"
-          onClick={onCancelTournament}
+          onClick={() => setIsCancelTournamentModalOpen(true)}
           title="Cancel tournament"
         >
           Cancel tournament
