@@ -3,15 +3,13 @@ import { Modal, TextField } from "@material-ui/core";
 import { Player } from "../../../utils/Helpers";
 import "./PlayerModal.scss";
 
-const PlayerModal = ({
-  onClose,
-  savePlayer,
-  playerToEdit,
-}: {
+interface Props {
   onClose: () => void;
   savePlayer: (playerData: Player) => void;
   playerToEdit: Player | undefined;
-}) => {
+}
+
+const PlayerModal = ({ onClose, savePlayer, playerToEdit }: Props) => {
   const [playerData, setPlayerData] = useState<Player>({
     id: 0,
     firstName: "",
