@@ -7,7 +7,7 @@ import { useState } from "react";
 
 interface ScheduleRowProps {
   player1: Player;
-  player2: Player;
+  player2?: Player;
 }
 
 const ScheduleRow = ({ player1, player2 }: ScheduleRowProps) => {
@@ -86,10 +86,16 @@ const ScheduleRow = ({ player1, player2 }: ScheduleRowProps) => {
 
         <div className="second-player">
           <div className="player-data">
-            <span className="name">{`${player2.firstName} ${player2.lastName}`}</span>
+            <span className="name">{`${
+              player2 ? `${player2.firstName} ${player2.lastName}` : ""
+            }`}</span>
             <div className="player-rating-country">
-              <span className="rating">{`${player2.rating}`}</span>
-              <span className="country">{`${player2.country}`}</span>
+              <span className="rating">{`${
+                player2 ? `${player2.rating}` : ""
+              }`}</span>
+              <span className="country">{`${
+                player2 ? `${player2.country}` : ""
+              }`}</span>
             </div>
           </div>
           <img className="radio-icon" src={blackIcon} alt="white" />

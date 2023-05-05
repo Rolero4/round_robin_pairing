@@ -13,19 +13,40 @@ const Schedule = ({
 }) => {
   const [currentRoundIndex, setCurrentRoundIndex] = useState(0);
 
+  const handlePreviousRound = () => {
+    if (currentRoundIndex > 0) {
+      setCurrentRoundIndex(currentRoundIndex - 1);
+    }
+  };
+
+  const handleNextRound = () => {
+    if (currentRoundIndex < tournament.rounds.length - 1) {
+      setCurrentRoundIndex(currentRoundIndex + 1);
+    }
+  };
+
+  const currentRound = tournament.rounds[currentRoundIndex];
+  // console.log(tournament);
   return (
     <>
-      <div>{/* TODO: Display header with round number */}</div>
+      <div>
+        {/* Display header with round number */}
+        <h2>Round {currentRoundIndex + 1}</h2>
+      </div>
       <div className="schedule-panel">
-        {players.map(player => (
-          <ScheduleRow player1={player} player2={player} key={uuidv4()} />
+        {currentRound.games.map(game => (
+          <ScheduleRow
+            player1={game.white}
+            player2={game.black}
+            key={uuidv4()}
+          />
         ))}
       </div>
       <div className="prev-next">
         <button
           id="btn-previous"
           className="btn btn-main"
-          // onClick={ }
+          onClick={handlePreviousRound}
           title="Previous"
         >
           Previous
@@ -34,7 +55,7 @@ const Schedule = ({
         <button
           id="btn-next"
           className="btn btn-main"
-          // onClick={ }
+          onClick={handleNextRound}
           title="Next"
         >
           Next
