@@ -1,33 +1,18 @@
 import "./Schedule.scss";
 import ScheduleRow from "./schedule-row/ScheduleRow";
-import { Player } from "../../../utils/Helpers";
 import { v4 as uuidv4 } from "uuid";
+import { useState } from "react";
+import { Player, Tournament } from "../../../utils/Helpers";
 
-const players: Player[] = [
-  {
-    id: 1,
-    firstName: "Magnus",
-    lastName: "Carlsen",
-    country: "USA",
-    rating: 1500,
-  },
-  {
-    id: 2,
-    firstName: "Hikaru",
-    lastName: "Nakamura",
-    country: "Canada",
-    rating: 1600,
-  },
-  {
-    id: 3,
-    firstName: "Jan",
-    lastName: "Krzysztof-Duda",
-    country: "Australia",
-    rating: 1700,
-  },
-];
+const Schedule = ({
+  tournament,
+  players,
+}: {
+  tournament: Tournament;
+  players: Player[];
+}) => {
+  const [currentRoundIndex, setCurrentRoundIndex] = useState(0);
 
-const Schedule = () => {
   return (
     <>
       <div>{/* TODO: Display header with round number */}</div>
