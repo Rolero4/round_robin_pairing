@@ -89,7 +89,13 @@ const Pairings = () => {
       <div className="pairings-main-panel">
         {activeTab === TabNames.Results && <Results />}
         {activeTab === TabNames.Schedule && (
-          <Schedule tournament={tournament} players={players} />
+          <Schedule
+            players={players}
+            setPlayers={setPlayers}
+            tournament={tournament}
+            setTournament={setTournament}
+            updateLocalStorage={updateLocalStorage}
+          />
         )}
       </div>
 

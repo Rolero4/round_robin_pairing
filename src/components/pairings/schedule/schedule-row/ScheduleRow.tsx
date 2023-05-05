@@ -8,9 +8,10 @@ import { useState } from "react";
 interface ScheduleRowProps {
   player1: Player;
   player2?: Player;
+  isEditable: boolean;
 }
 
-const ScheduleRow = ({ player1, player2 }: ScheduleRowProps) => {
+const ScheduleRow = ({ player1, player2, isEditable }: ScheduleRowProps) => {
   const [result, setResult] = useState({ first: 0, second: 0 });
 
   const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,43 +46,45 @@ const ScheduleRow = ({ player1, player2 }: ScheduleRowProps) => {
             <span className="res-second-player">{result.second}</span>
           </div>
 
-          <div className="radio-container">
-            <form>
-              <label>
-                <input
-                  type="radio"
-                  name="radio"
-                  value="white"
-                  onChange={handleRadioChange}
-                />
-                <span>
-                  <img className="radio-icon" src={whiteIcon} alt="white" />
-                </span>
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name="radio"
-                  value="draw"
-                  onChange={handleRadioChange}
-                />
-                <span>
-                  <img className="radio-icon" src={drawIcon} alt="draw" />
-                </span>
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name="radio"
-                  value="black"
-                  onChange={handleRadioChange}
-                />
-                <span>
-                  <img className="radio-icon" src={blackIcon} alt="black" />
-                </span>
-              </label>
-            </form>
-          </div>
+          {isEditable && (
+            <div className="radio-container">
+              <form>
+                <label>
+                  <input
+                    type="radio"
+                    name="radio"
+                    value="white"
+                    onChange={handleRadioChange}
+                  />
+                  <span>
+                    <img className="radio-icon" src={whiteIcon} alt="white" />
+                  </span>
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="radio"
+                    value="draw"
+                    onChange={handleRadioChange}
+                  />
+                  <span>
+                    <img className="radio-icon" src={drawIcon} alt="draw" />
+                  </span>
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="radio"
+                    value="black"
+                    onChange={handleRadioChange}
+                  />
+                  <span>
+                    <img className="radio-icon" src={blackIcon} alt="black" />
+                  </span>
+                </label>
+              </form>
+            </div>
+          )}
         </div>
 
         <div className="second-player">

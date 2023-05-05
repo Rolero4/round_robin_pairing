@@ -37,7 +37,7 @@ export function doubleRoundRobin(players: Player[]): Tournament {
 
   // Generate second half of rounds with swapped home/away players
   for (let i = roundCount - 1; i >= 0; i--) {
-    const round: Round = { games: [], isEditable: true };
+    const round: Round = { games: [], isEditable: false };
     rounds[i].games.forEach(game => {
       const swappedGame: Game = {
         round: roundCount * 2 - i,
