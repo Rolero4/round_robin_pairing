@@ -3,6 +3,7 @@ import Results from "./results/Results";
 import Schedule from "./schedule/Schedule";
 import Header from "../header/Header";
 import {
+  Game,
   Player,
   Round,
   TabNames,
@@ -28,6 +29,13 @@ const Pairings = () => {
   const [activeTab, setActiveTab] = useState<TabNames>(TabNames.Schedule);
   const [isCancelTournamentModalOpen, setIsCancelTournamentModalOpen] =
     useState(false);
+  const [currentRoundIndex, setCurrentRoundIndex] = useState(0);
+
+  useEffect(() => {
+    if (tournament.rounds?.length) {
+      setCurrentRoundIndex(tournament.currentRoundIndex);
+    }
+  }, [tournament.currentRoundIndex]);
 
   useEffect(() => {
     const localStoragePlayers = localStorage.getItem("players");
@@ -63,6 +71,45 @@ const Pairings = () => {
     setActiveTab(tab);
   };
 
+  const finishRound = () => {
+    if (tournament.currentRoundIndex === tournament.rounds.length - 1) {
+      setTournament((prevTournament: Tournament) => {
+        const newTournament = {
+          ...prevTournament,
+        };
+        newTournament.rounds[prevTournament.currentRoundIndex].isEditable =
+          false;
+        updateLocalStorage("tournament", newTournament);
+        return newTournament;
+      });
+    } else {
+      setCurrentRoundIndex(tournament.currentRoundIndex + 1);
+      setTournament((prevTournament: Tournament) => {
+        const newTournament = {
+          ...prevTournament,
+          currentRoundIndex: prevTournament.currentRoundIndex + 1,
+        };
+        newTournament.rounds[prevTournament.currentRoundIndex].isEditable =
+          false;
+        newTournament.rounds[newTournament.currentRoundIndex].isEditable = true;
+        updateLocalStorage("tournament", newTournament);
+        return newTournament;
+      });
+    }
+  };
+
+  const areCurrentTournamentRoundScoresValid = (): boolean => {
+    return tournament.rounds[tournament.currentRoundIndex]?.games.every(
+      (game: Game) => {
+        const areValid =
+          game.whiteScore !== undefined &&
+          game.blackScore !== undefined &&
+          game.whiteScore + game.blackScore === 1;
+        return areValid;
+      },
+    );
+  };
+
   return (
     <>
       {isCancelTournamentModalOpen && (
@@ -90,11 +137,11 @@ const Pairings = () => {
         {activeTab === TabNames.Results && <Results />}
         {activeTab === TabNames.Schedule && (
           <Schedule
-            players={players}
-            setPlayers={setPlayers}
             tournament={tournament}
             setTournament={setTournament}
             updateLocalStorage={updateLocalStorage}
+            currentRoundIndex={currentRoundIndex}
+            setCurrentRoundIndex={setCurrentRoundIndex}
           />
         )}
       </div>
@@ -107,6 +154,15 @@ const Pairings = () => {
           title="Cancel tournament"
         >
           Cancel tournament
+        </button>
+        <button
+          id="btn-finish"
+          className="btn btn-bottom"
+          onClick={finishRound}
+          disabled={!areCurrentTournamentRoundScoresValid()}
+          title="Finish round"
+        >
+          Finish round
         </button>
       </div>
     </>

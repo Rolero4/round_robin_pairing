@@ -1,28 +1,60 @@
-import { Player } from "../../../../utils/Helpers";
+import { Game, Tournament } from "../../../../utils/Helpers";
 import whiteIcon from "../../../../assets/crown-white.png";
 import blackIcon from "../../../../assets/crown-black.png";
 import drawIcon from "../../../../assets/crown-draw.png";
 import "./ScheduleRow.scss";
-import { useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 
 interface ScheduleRowProps {
-  player1: Player;
-  player2?: Player;
+  tournament: Tournament;
+  setTournament: Dispatch<SetStateAction<Tournament>>;
+  game: Game;
+  gameIndex: number;
   isEditable: boolean;
+  updateLocalStorage: (key: string, value: object) => void;
 }
 
-const ScheduleRow = ({ player1, player2, isEditable }: ScheduleRowProps) => {
-  const [result, setResult] = useState({ first: 0, second: 0 });
+const ScheduleRow = ({
+  tournament,
+  setTournament,
+  updateLocalStorage,
+  game,
+  gameIndex,
+  isEditable,
+}: ScheduleRowProps) => {
+  const { white, black } = game;
+  const { whiteScore, blackScore } =
+    tournament.rounds[game.round].games[gameIndex];
 
   const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     if (value === "white") {
-      setResult({ first: 1, second: 0 });
+      updateGameScore({ first: 1, second: 0 });
     } else if (value === "draw") {
-      setResult({ first: 0.5, second: 0.5 });
+      updateGameScore({ first: 0.5, second: 0.5 });
     } else if (value === "black") {
-      setResult({ first: 0, second: 1 });
+      updateGameScore({ first: 0, second: 1 });
     }
+  };
+
+  const updateGameScore = ({
+    first,
+    second,
+  }: {
+    first: number;
+    second: number;
+  }) => {
+    setTournament(prevTournament => {
+      const newTournament = { ...prevTournament };
+      newTournament.rounds[prevTournament.currentRoundIndex].games[
+        gameIndex
+      ].whiteScore = first;
+      newTournament.rounds[prevTournament.currentRoundIndex].games[
+        gameIndex
+      ].blackScore = second;
+      updateLocalStorage("tournament", newTournament);
+      return newTournament;
+    });
   };
 
   return (
@@ -31,19 +63,19 @@ const ScheduleRow = ({ player1, player2, isEditable }: ScheduleRowProps) => {
         <div className="first-player">
           <img className="radio-icon" src={whiteIcon} alt="white" />
           <div className="player-data">
-            <span className="name">{`${player1.firstName} ${player1.lastName}`}</span>
+            <span className="name">{`${white.firstName} ${white.lastName}`}</span>
             <div className="player-rating-country">
-              <span className="rating">{`${player1.rating}`}</span>
-              <span className="country">{`${player1.country}`}</span>
+              <span className="rating">{`${white.rating}`}</span>
+              <span className="country">{`${white.country}`}</span>
             </div>
           </div>
         </div>
 
         <div className="result">
           <div className="result-text">
-            <span className="res-first-player">{result.first}</span>
+            <span className="res-first-player">{whiteScore ?? 0}</span>
             <div className="divider"></div>
-            <span className="res-second-player">{result.second}</span>
+            <span className="res-second-player">{blackScore ?? 0}</span>
           </div>
 
           {isEditable && (
@@ -54,6 +86,7 @@ const ScheduleRow = ({ player1, player2, isEditable }: ScheduleRowProps) => {
                     type="radio"
                     name="radio"
                     value="white"
+                    checked={whiteScore === 1 && blackScore === 0}
                     onChange={handleRadioChange}
                   />
                   <span>
@@ -65,6 +98,7 @@ const ScheduleRow = ({ player1, player2, isEditable }: ScheduleRowProps) => {
                     type="radio"
                     name="radio"
                     value="draw"
+                    checked={whiteScore === 0.5 && blackScore === 0.5}
                     onChange={handleRadioChange}
                   />
                   <span>
@@ -76,6 +110,7 @@ const ScheduleRow = ({ player1, player2, isEditable }: ScheduleRowProps) => {
                     type="radio"
                     name="radio"
                     value="black"
+                    checked={whiteScore === 0 && blackScore === 1}
                     onChange={handleRadioChange}
                   />
                   <span>
@@ -90,14 +125,14 @@ const ScheduleRow = ({ player1, player2, isEditable }: ScheduleRowProps) => {
         <div className="second-player">
           <div className="player-data">
             <span className="name">{`${
-              player2 ? `${player2.firstName} ${player2.lastName}` : ""
+              black ? `${black.firstName} ${black.lastName}` : ""
             }`}</span>
             <div className="player-rating-country">
               <span className="rating">{`${
-                player2 ? `${player2.rating}` : ""
+                black ? `${black.rating}` : ""
               }`}</span>
               <span className="country">{`${
-                player2 ? `${player2.country}` : ""
+                black ? `${black.country}` : ""
               }`}</span>
             </div>
           </div>
