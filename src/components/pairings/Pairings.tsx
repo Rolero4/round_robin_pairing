@@ -73,8 +73,11 @@ const Pairings = () => {
       </div>
       <div className="pairings-main-panel">
         {activeTab === TabNames.Results && <Results />}
-        {activeTab === TabNames.Schedule && <Schedule />}
+        {activeTab === TabNames.Schedule && (
+          <Schedule tournament={tournament} players={players} />
+        )}
       </div>
+
       <div className="pairings-bottom-panel">
         <button
           id="btn-cancel"

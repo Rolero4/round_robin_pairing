@@ -1,42 +1,66 @@
 import "./Schedule.scss";
 import ScheduleRow from "./schedule-row/ScheduleRow";
-import { Player } from "../../../utils/Helpers";
 import { v4 as uuidv4 } from "uuid";
+import { useState } from "react";
+import { Player, Tournament } from "../../../utils/Helpers";
 
-const players: Player[] = [
-  {
-    id: 1,
-    firstName: "Magnus",
-    lastName: "Carlsen",
-    country: "USA",
-    rating: 1500,
-  },
-  {
-    id: 2,
-    firstName: "Hikaru",
-    lastName: "Nakamura",
-    country: "Canada",
-    rating: 1600,
-  },
-  {
-    id: 3,
-    firstName: "Jan",
-    lastName: "Krzysztof-Duda",
-    country: "Australia",
-    rating: 1700,
-  },
-];
+const Schedule = ({
+  tournament,
+  players,
+}: {
+  tournament: Tournament;
+  players: Player[];
+}) => {
+  const [currentRoundIndex, setCurrentRoundIndex] = useState(0);
 
-const Schedule = () => {
+  const handlePreviousRound = () => {
+    if (currentRoundIndex > 0) {
+      setCurrentRoundIndex(currentRoundIndex - 1);
+    }
+  };
+
+  const handleNextRound = () => {
+    if (currentRoundIndex < tournament.rounds.length - 1) {
+      setCurrentRoundIndex(currentRoundIndex + 1);
+    }
+  };
+
+  const currentRound = tournament.rounds[currentRoundIndex];
+  // console.log(tournament);
   return (
     <>
-      <div>{/* TODO: Display header with round number */}</div>
+      <div>
+        {/* Display header with round number */}
+        <h2>Round {currentRoundIndex + 1}</h2>
+      </div>
       <div className="schedule-panel">
-        {players.map(player => (
-          <ScheduleRow player1={player} player2={player} key={uuidv4()} />
+        {currentRound.games.map(game => (
+          <ScheduleRow
+            player1={game.white}
+            player2={game.black}
+            key={uuidv4()}
+          />
         ))}
       </div>
-      <div>{/* TODO: Add pagination */}</div>
+      <div className="prev-next">
+        <button
+          id="btn-previous"
+          className="btn btn-main"
+          onClick={handlePreviousRound}
+          title="Previous"
+        >
+          Previous
+        </button>
+
+        <button
+          id="btn-next"
+          className="btn btn-main"
+          onClick={handleNextRound}
+          title="Next"
+        >
+          Next
+        </button>
+      </div>
     </>
   );
 };

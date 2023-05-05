@@ -1,8 +1,8 @@
 .schedule-row {
   margin-top: 15px;
-  width: 60%;
+  width: 50%;
   min-width: 720px;
-  height: 100px;
+  height: 90px;
   background-color: #dac4ff;
   border-radius: 10px;
   display: flex;
@@ -12,6 +12,7 @@
 
   .first-player,
   .second-player {
+    width: 300px;
     display: flex;
     align-items: center;
 
@@ -59,14 +60,14 @@
     flex-grow: 4;
     display: flex;
     justify-content: space-evenly;
-    width: 80px;
+    width: 90px;
     max-height: 28px;
     border: 2px solid black;
     background-color: white;
 
     span {
       display: block;
-      width: 10px;
+      width: 30px;
       font-size: 20px;
       font-weight: 500;
     }
@@ -134,7 +135,7 @@ form {
       }
 
       img {
-        width: 25px;
+        width: 20px;
       }
     }
   }
