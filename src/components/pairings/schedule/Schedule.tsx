@@ -36,7 +36,25 @@ const Schedule = () => {
           <ScheduleRow player1={player} player2={player} key={uuidv4()} />
         ))}
       </div>
-      <div>{/* TODO: Add pagination */}</div>
+      <div className="prev-next">
+        <button
+          id="btn-previous"
+          className="btn btn-main"
+          // onClick={ }
+          title="Previous"
+        >
+          Previous
+        </button>
+
+        <button
+          id="btn-next"
+          className="btn btn-main"
+          // onClick={ }
+          title="Next"
+        >
+          Next
+        </button>
+      </div>
     </>
   );
 };
