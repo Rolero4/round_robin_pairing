@@ -27,6 +27,10 @@ const Schedule = ({
     setCurrentRoundIndex(prevCurrentRoundIndex => prevCurrentRoundIndex + 1);
   };
 
+  const handleCurrentRound = () => {
+    setCurrentRoundIndex(tournament.currentRoundIndex);
+  };
+
   const currentRound = tournament.rounds[currentRoundIndex];
   return (
     <>
@@ -53,6 +57,16 @@ const Schedule = ({
           disabled={currentRoundIndex === 0}
         >
           Previous
+        </button>
+
+        <button
+          id="btn-current"
+          className="btn btn-bottom"
+          onClick={handleCurrentRound}
+          title="Current Round"
+          disabled={currentRoundIndex === tournament.currentRoundIndex}
+        >
+          Current Round
         </button>
 
         <button
