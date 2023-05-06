@@ -11,15 +11,21 @@ export function doubleRoundRobin(players: Player[]): Tournament {
       score: 0,
     });
   }
-  const playerCount = players.length;
 
+  // Shuffle the array of players randomly
+  for (let i = players.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [players[i], players[j]] = [players[j], players[i]];
+  }
+
+  const playerCount = players.length;
   const rounds: Round[] = [];
   const roundCount = playerCount - 1;
 
   for (let i = 0; i < roundCount; i++) {
     const round: Round = { games: [], isEditable: i === 0 };
     const firstHalf: Player[] = players.slice(playerCount / 2);
-    const secondHalf: Player[] = players.slice(playerCount / 2).reverse();
+    const secondHalf: Player[] = players.slice(0, playerCount / 2).reverse();
 
     for (let j = 0; j < playerCount / 2; j++) {
       const game: Game = {
