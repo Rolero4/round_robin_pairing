@@ -27,12 +27,14 @@ const Schedule = ({
     setCurrentRoundIndex(prevCurrentRoundIndex => prevCurrentRoundIndex + 1);
   };
 
+  const handleCurrentRound = () => {
+    setCurrentRoundIndex(tournament.currentRoundIndex);
+  };
+
   const currentRound = tournament.rounds[currentRoundIndex];
   return (
     <>
-      <div>
-        <h2>Round {currentRoundIndex + 1}</h2>
-      </div>
+      <h2 className="schedule-title">Round {currentRoundIndex + 1}</h2>
       <div className="schedule-panel">
         {currentRound?.games.map((game, gameIndex) => (
           <ScheduleRow
@@ -55,6 +57,16 @@ const Schedule = ({
           disabled={currentRoundIndex === 0}
         >
           Previous
+        </button>
+
+        <button
+          id="btn-current"
+          className="btn btn-bottom"
+          onClick={handleCurrentRound}
+          title="Current Round"
+          disabled={currentRoundIndex === tournament.currentRoundIndex}
+        >
+          Current Round
         </button>
 
         <button

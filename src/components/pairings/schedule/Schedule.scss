@@ -1,3 +1,9 @@
+.schedule-title {
+  height: 20px;
+  margin: 0;
+  padding-bottom: 10px;
+}
+
 .schedule-panel {
   display: flex;
   flex-direction: column;
@@ -7,12 +13,18 @@
 }
 
 .prev-next {
-  margin-top: 30px;
-  width: 30%;
+  margin-top: 15px;
   display: flex;
   justify-content: space-around;
+  gap: 10px;
 
-  button {
-    width: 140px;
+  .btn {
+    &-main {
+      width: 140px;
+    }
+
+    &-bottom {
+      width: 200px;
+    }
   }
 }
