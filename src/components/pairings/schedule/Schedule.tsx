@@ -30,9 +30,7 @@ const Schedule = ({
   const currentRound = tournament.rounds[currentRoundIndex];
   return (
     <>
-      <div>
-        <h2>Round {currentRoundIndex + 1}</h2>
-      </div>
+      <h2 className="schedule-title">Round {currentRoundIndex + 1}</h2>
       <div className="schedule-panel">
         {currentRound?.games.map((game, gameIndex) => (
           <ScheduleRow
