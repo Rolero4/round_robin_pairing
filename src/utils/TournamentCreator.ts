@@ -32,7 +32,16 @@ export function doubleRoundRobin(players: Player[]): Tournament {
         round: i,
         white: firstHalf[j],
         black: secondHalf[j],
+        whiteScore: undefined,
+        blackScore: undefined,
       };
+      if (game.white.id === -1) {
+        game.whiteScore = 0;
+        game.blackScore = 1;
+      } else if (game.black?.id === -1) {
+        game.whiteScore = 1;
+        game.blackScore = 0;
+      }
       round.games.push(game);
     }
     rounds.push(round);
@@ -50,6 +59,13 @@ export function doubleRoundRobin(players: Player[]): Tournament {
         white: game.black!,
         black: game.white,
       };
+      if (swappedGame.white.id === -1) {
+        swappedGame.whiteScore = 1;
+        swappedGame.blackScore = 0;
+      } else if (game.black?.id === -1) {
+        swappedGame.whiteScore = 0;
+        swappedGame.blackScore = 1;
+      }
       round.games.push(swappedGame);
     });
     rounds.push(round);
