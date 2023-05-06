@@ -22,14 +22,13 @@ const ScheduleRow = ({
   gameIndex,
   isEditable,
 }: ScheduleRowProps) => {
-  const [additionalClass, setadditionalClass] = useState('')
+  const [additionalClass, setadditionalClass] = useState("");
   const { white, black } = game;
   const { whiteScore, blackScore } =
     tournament.rounds[game.round].games[gameIndex];
 
   const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if(game.black?.id === -1 || game.white.id === -1)
-      return
+    if (game.black?.id === -1 || game.white.id === -1) return;
     const value = event.target.value;
     if (value === "white") {
       updateGameScore({ first: 1, second: 0 });
@@ -60,18 +59,17 @@ const ScheduleRow = ({
     });
   };
 
-  useEffect(()=>{
-    if(game.black?.id === -1 || game.white.id === -1){
-      setadditionalClass('schedule-row-bye')
-    } else if (game.blackScore! > game.whiteScore!){
-      setadditionalClass('schedule-row-black')
-    } else if(game.blackScore!< game.whiteScore!){
-      setadditionalClass('schedule-row-white')
-    } else if(game.blackScore === 0.5){
-      setadditionalClass('schedule-row-draw')
+  useEffect(() => {
+    if (game.black?.id === -1 || game.white.id === -1) {
+      setadditionalClass("schedule-row-bye");
+    } else if (game.blackScore! > game.whiteScore!) {
+      setadditionalClass("schedule-row-black");
+    } else if (game.blackScore! < game.whiteScore!) {
+      setadditionalClass("schedule-row-white");
+    } else if (game.blackScore === 0.5) {
+      setadditionalClass("schedule-row-draw");
     }
-  }, [])
-
+  }, []);
 
   return (
     <>
