@@ -140,33 +140,33 @@
   }
 }
 
-.schedule-row-white{
-  background: linear-gradient(90deg,gray 0%, #d3caca 55%, white 100%);
-  color: black;
-  .result-text {
-    border: 2px solid black;
-    background-color: white;
-    .divider {
-      background-color: black;
-    }
-  }
-}
-.schedule-row-black{
-  background: linear-gradient(90deg, black 0%, #312a2a 45%, gray 100%);
-  color: white;
-  .result-text {
-    border: 2px solid white;
-    background-color: black;
-    .divider {
-      background-color: #faf8f8;
-    }
-  }
-}
-.schedule-row-bye{
-  background:#d6c177;
-}
+// .schedule-row-white{
+//   background: linear-gradient(90deg,gray 0%, #d3caca 55%, white 100%);
+//   color: black;
+//   .result-text {
+//     border: 2px solid black;
+//     background-color: white;
+//     .divider {
+//       background-color: black;
+//     }
+//   }
+// }
+// .schedule-row-black{
+//   background: linear-gradient(90deg, black 0%, #312a2a 45%, gray 100%);
+//   color: white;
+//   .result-text {
+//     border: 2px solid white;
+//     background-color: black;
+//     .divider {
+//       background-color: #faf8f8;
+//     }
+//   }
+// }
+// .schedule-row-bye{
+//   background:#d6c177;
+// }
 
-.schedule-row-draw{
-    background: gray;
-}
+// .schedule-row-draw{
+//     background: gray;
+// }
 

@@ -4,11 +4,11 @@ export function doubleRoundRobin(players: Player[]): Tournament {
   if (players.length % 2 !== 0) {
     players.push({
       id: -1,
-      firstName: "Bye",
-      lastName: "Bye",
-      rating: 0,
-      country: "Bye",
-      score: 0,
+      firstName: "",
+      lastName: "",
+      rating: null,
+      country: "",
+      score: undefined,
     });
   }
 
@@ -38,7 +38,7 @@ export function doubleRoundRobin(players: Player[]): Tournament {
       if (game.white.id === -1) {
         game.whiteScore = 0;
         game.blackScore = 1;
-      } else if (game.black?.id === -1) {
+      } else if (game.black.id === -1) {
         game.whiteScore = 1;
         game.blackScore = 0;
       }
@@ -56,13 +56,13 @@ export function doubleRoundRobin(players: Player[]): Tournament {
     rounds[i].games.forEach(game => {
       const swappedGame: Game = {
         round: roundCount * 2 - i - 1,
-        white: game.black!,
+        white: game.black,
         black: game.white,
       };
       if (swappedGame.white.id === -1) {
         swappedGame.whiteScore = 1;
         swappedGame.blackScore = 0;
-      } else if (game.black?.id === -1) {
+      } else if (swappedGame.black.id === -1) {
         swappedGame.whiteScore = 0;
         swappedGame.blackScore = 1;
       }
