@@ -1,33 +1,28 @@
 import "./Results.scss";
-import { Player, ResultsTableColumns } from "../../../utils/Helpers";
+import {
+  Player,
+  ResultsTableColumns,
+  Tournament,
+} from "../../../utils/Helpers";
 import ResultsRow from "./results-row/ResultsRow";
 import { v4 as uuidv4 } from "uuid";
+import { useOutletContext } from "react-router-dom";
 
-const players: Player[] = [
-  {
-    id: 1,
-    firstName: "Magnus",
-    lastName: "Carlsen",
-    country: "USA",
-    rating: 1500,
-  },
-  {
-    id: 2,
-    firstName: "Hikaru",
-    lastName: "Nakamura",
-    country: "Canada",
-    rating: 1600,
-  },
-  {
-    id: 3,
-    firstName: "Ian",
-    lastName: "Nepomniachtchi",
-    rating: 2795,
-    country: "Russia",
-  },
-];
+interface RouterOutletContext {
+  players: Player[];
+  tournament: Tournament;
+}
 
 const Results = () => {
+  const { players, tournament } = useOutletContext<RouterOutletContext>();
+  const columnsCount: number = players.filter(
+    player => player.id !== -1,
+  ).length;
+  const indexArray: number[] = Array.from(
+    { length: columnsCount },
+    (_, i) => i + 1,
+  );
+
   return (
     <>
       <div className="results-panel">
@@ -39,11 +34,24 @@ const Results = () => {
                   {column}
                 </th>
               ))}
+              {indexArray.map(column => (
+                <th className="data-table-header-cell" key={uuidv4()}>
+                  {column}
+                </th>
+              ))}
+              <th className="data-table-header-cell" key={uuidv4()}>
+                Pts
+              </th>
             </tr>
           </thead>
           <tbody>
             {players.map(player => (
-              <ResultsRow player={player} key={uuidv4()} />
+              <ResultsRow
+                player={player}
+                tournament={tournament}
+                columnsCount={columnsCount}
+                key={uuidv4()}
+              />
             ))}
           </tbody>
         </table>

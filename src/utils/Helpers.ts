@@ -2,7 +2,7 @@ export interface Player {
   id: number;
   firstName: string;
   lastName: string;
-  rating?: number;
+  rating: number | null;
   country?: string;
   score?: number;
 }
@@ -24,19 +24,9 @@ export const RegistrationTableColumnKeys = [
   "country",
 ];
 
-export const ResultsTableColumns = [
-  "Pos",
-  "Fed",
-  "Name",
-  "Rtg",
-  "1", // ZMIENIC NA TWORZENIE KOLUMN NA PODSTAWIE ILOSCI ZAWODNIKOW
-  "2",
-  "3",
-  "Pts",
-];
+export const ResultsTableColumns = ["Pos", "Fed", "Name", "Rtg"];
 
 export const ResultsTableColumnKeys = [
-  // ZMIENIC NA DOCELOWE
   "id",
   "firstName",
   "lastName",
@@ -53,7 +43,7 @@ export interface Game {
   round: number;
   white: Player;
   whiteScore?: number;
-  black?: Player;
+  black: Player;
   blackScore?: number;
 }
 
