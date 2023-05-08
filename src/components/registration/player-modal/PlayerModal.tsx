@@ -87,17 +87,22 @@ const PlayerModal = ({ onClose, savePlayer, playerToEdit }: Props) => {
           onChange={handleLastNameChange}
           required
         />
-        <TextField
-          label="Country"
-          value={playerData.country}
-          onChange={handleCountryChange}
-        />
-        <TextField
-          label="Rating"
-          type="number"
-          value={playerData.rating}
-          onChange={handleRatingChange}
-        />
+        <div className="coutry-rating-container">
+          <TextField
+            label="Country"
+            value={playerData.country}
+            onChange={handleCountryChange}
+            className="input-half"
+          />
+          <TextField
+            label="Rating"
+            type="number"
+            value={playerData.rating}
+            onChange={handleRatingChange}
+            className="input-half"
+          />
+        </div>
+
         <button
           className="btn btn-main"
           onClick={handleSubmit}
