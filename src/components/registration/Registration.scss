@@ -1,17 +1,17 @@
 .registration-top-panel {
   padding-top: 20px;
+  height: 5%;
 }
 
 .registration-main-panel {
   padding-top: 20px;
-  display: flex;
-  justify-content: center;
+  max-height: 70vh;
+  overflow: auto;
 
   .data-table {
     border-collapse: collapse;
     margin: 0 auto;
     align-self: center;
-
     &-header {
       background-color: #f5f5f5;
       font-weight: bold;

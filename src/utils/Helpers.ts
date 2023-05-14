@@ -1,12 +1,3 @@
-export interface Player {
-  id: number;
-  firstName: string;
-  lastName: string;
-  rating: number | null;
-  country?: string;
-  score?: number;
-}
-
 export const RegistrationTableColumns = [
   "X",
   "First Name",
@@ -37,6 +28,15 @@ export const ResultsTableColumnKeys = [
 export enum TabNames {
   Results = "results",
   Schedule = "schedule",
+}
+
+export interface Player {
+  id: number;
+  firstName: string;
+  lastName: string;
+  rating: number | null;
+  country?: string;
+  score?: number;
 }
 
 export interface Game {
