@@ -8,23 +8,18 @@ interface ResultsRowProps {
   columnsCount: number;
 }
 
-interface GameScore {
-  white: number | undefined;
-  black: number | undefined;
-}
-
 const ResultsRow = ({ player, tournament, columnsCount }: ResultsRowProps) => {
   const [scoreColumns, setscoreColumns] = useState<JSX.Element[]>([]);
   const [score, setscore] = useState<number>(0);
 
-  const prepareScoreColumns = (scores: GameScore[]) => {
+  const prepareScoreColumns = (scores: (number | undefined)[]) => {
     const scoreColumns: JSX.Element[] = [];
 
     for (let i = 0; i < columnsCount; i++) {
       if (i + 1 !== player.id)
         scoreColumns.push(
           <td key={i} className="data-table-cell">
-            {output(scores[i]?.white, scores[i]?.black)}
+            {output(scores[i])}
           </td>,
         );
       else {
@@ -39,50 +34,35 @@ const ResultsRow = ({ player, tournament, columnsCount }: ResultsRowProps) => {
     setscoreColumns(scoreColumns);
   };
 
-  const prepareScore = (scores: GameScore[]) => {
+  const prepareScore = (scores: (number | undefined)[]) => {
     let finalScore = 0;
 
-    scores.forEach((score: GameScore) => {
-      if (score.white !== undefined) finalScore += score.white;
-      if (score.black !== undefined) finalScore += score.black;
+    scores.forEach((score: number | undefined) => {
+      if (score !== undefined) finalScore += score;
     });
 
     setscore(finalScore);
   };
 
-  const output = (obj1: number | undefined, obj2: number | undefined) => {
-    return `${obj1 === undefined ? "-" : obj1} | ${
-      obj2 === undefined ? "-" : obj2
-    }`;
+  const output = (obj1: number | undefined) => {
+    return `${obj1 === undefined ? "" : obj1}`;
   };
 
   useEffect(() => {
-    const scores: GameScore[] = Array(columnsCount).fill({
-      white: undefined,
-      black: undefined,
-    });
+    const scores: (number | undefined)[] = Array(columnsCount).fill(undefined);
 
     tournament.rounds.forEach((round: Round) => {
       round.games.forEach((game: Game) => {
         if (game.white.id !== -1 && game.black.id !== -1) {
-          const blackIndex = game.black.id - 1;
-          const whiteIndex = game.white.id - 1;
           if (game.white.id === player.id) {
-            const gameScore = {
-              white: game.whiteScore,
-              black: scores[blackIndex].black,
-            };
-            scores[blackIndex] = gameScore;
+            scores[game.black.id - 1] = game.whiteScore;
           } else if (game.black.id === player.id) {
-            const gameScore = {
-              white: scores[whiteIndex].white,
-              black: game.blackScore,
-            };
-            scores[whiteIndex] = gameScore;
+            scores[game.white.id - 1] = game.blackScore;
           }
         }
       });
     });
+
     prepareScoreColumns(scores);
     console.log(player);
   }, []);
@@ -104,7 +84,7 @@ const ResultsRow = ({ player, tournament, columnsCount }: ResultsRowProps) => {
         {scoreColumns}
 
         <td className="data-table-cell">
-          {score}/{(columnsCount - 1) * 2}
+          {score}/{columnsCount - 1}
         </td>
       </tr>
     </>

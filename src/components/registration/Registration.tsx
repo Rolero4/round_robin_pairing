@@ -10,7 +10,7 @@ import TableRow from "./table-row/TableRow";
 import { v4 as uuidv4 } from "uuid";
 import PlayerModal from "./player-modal/PlayerModal";
 import { useNavigate, useOutletContext } from "react-router-dom";
-import { doubleRoundRobin } from "../../utils/TournamentCreator";
+import { roundRobin } from "../../utils/TournamentCreator";
 
 interface RouterOutletContext {
   players: Player[];
@@ -95,7 +95,8 @@ const Registration = () => {
   };
 
   const onCreateTournament = (): void => {
-    const tourney: Tournament = doubleRoundRobin(players);
+    const tourney: Tournament = roundRobin(players);
+    console.log(tourney);
     setTournament(tourney);
     updateLocalStorage("tournament", tourney);
     navigate("/pairings");
@@ -123,9 +124,9 @@ const Registration = () => {
           id="btn-add"
           className="btn btn-main"
           onClick={handleOpenAddModal}
-          disabled={players.length === 10}
+          disabled={players.length === 16}
           title={
-            players.length === 10
+            players.length === 16
               ? "Maximum number of players reached"
               : "Add new player"
           }

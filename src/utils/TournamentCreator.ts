@@ -1,6 +1,15 @@
 import { Player, Round, Game, Tournament } from "./Helpers";
+import {
+  roundRobin4,
+  roundRobin6,
+  roundRobin8,
+  roundRobin10,
+  roundRobin12,
+  roundrobin14,
+  roundrobin16,
+} from "./RoundRobinArrays";
 
-export function doubleRoundRobin(players: Player[]): Tournament {
+export function roundRobin(players: Player[]): Tournament {
   if (players.length % 2 !== 0) {
     players.push({
       id: -1,
@@ -13,25 +22,23 @@ export function doubleRoundRobin(players: Player[]): Tournament {
   }
 
   // Shuffle the array of players randomly
-  for (let i = players.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [players[i], players[j]] = [players[j], players[i]];
-  }
+  // for (let i = players.length - 1; i > 0; i--) {
+  //   const j = Math.floor(Math.random() * (i + 1));
+  //   [players[i], players[j]] = [players[j], players[i]];
+  // }
 
   const playerCount = players.length;
+  const roundsPattern: number[][][] = chooseArray(playerCount);
+
   const rounds: Round[] = [];
-  const roundCount = playerCount - 1;
-
-  for (let i = 0; i < roundCount; i++) {
-    const round: Round = { games: [], isEditable: i === 0 };
-    const firstHalf: Player[] = players.slice(playerCount / 2);
-    const secondHalf: Player[] = players.slice(0, playerCount / 2).reverse();
-
-    for (let j = 0; j < playerCount / 2; j++) {
+  let roundIndex = 0;
+  roundsPattern.forEach((roundPattern: number[][]) => {
+    const round: Round = { games: [], isEditable: roundIndex === 0 };
+    roundPattern.forEach((gamePattern: number[]) => {
       const game: Game = {
-        round: i,
-        white: firstHalf[j],
-        black: secondHalf[j],
+        round: roundIndex,
+        white: players[gamePattern[0]],
+        black: players[gamePattern[1]],
         whiteScore: undefined,
         blackScore: undefined,
       };
@@ -43,33 +50,11 @@ export function doubleRoundRobin(players: Player[]): Tournament {
         game.blackScore = 0;
       }
       round.games.push(game);
-    }
-    rounds.push(round);
-
-    // Rotate players for the next round
-    players.splice(1, 0, players.pop()!);
-  }
-
-  // Generate second half of rounds with swapped home/away players
-  for (let i = roundCount - 1; i >= 0; i--) {
-    const round: Round = { games: [], isEditable: false };
-    rounds[i].games.forEach(game => {
-      const swappedGame: Game = {
-        round: roundCount * 2 - i - 1,
-        white: game.black,
-        black: game.white,
-      };
-      if (swappedGame.white.id === -1) {
-        swappedGame.whiteScore = 1;
-        swappedGame.blackScore = 0;
-      } else if (swappedGame.black.id === -1) {
-        swappedGame.whiteScore = 0;
-        swappedGame.blackScore = 1;
-      }
-      round.games.push(swappedGame);
     });
     rounds.push(round);
-  }
+    roundIndex++;
+  });
+  rounds[0].isEditable = true;
 
   const tournament: Tournament = {
     rounds,
@@ -77,4 +62,25 @@ export function doubleRoundRobin(players: Player[]): Tournament {
     currentRoundIndex: 0,
   };
   return tournament;
+}
+
+function chooseArray(numPlayers: number): number[][][] {
+  switch (numPlayers) {
+    case 4:
+      return roundRobin4;
+    case 6:
+      return roundRobin6;
+    case 8:
+      return roundRobin8;
+    case 10:
+      return roundRobin10;
+    case 12:
+      return roundRobin12;
+    case 14:
+      return roundrobin14;
+    case 16:
+      return roundrobin16;
+    default:
+      return [[[]]];
+  }
 }
